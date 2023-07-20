@@ -10,6 +10,11 @@ using namespace std;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+HDC hdcSource = GetDC(NULL);
+
+int SW = GetDeviceCaps(hdcSource, HORZRES);
+int SH = GetDeviceCaps(hdcSource, VERTRES);
+
 float HUE = 0;
 float S = 1;
 float V = 1;
@@ -113,8 +118,8 @@ INT APIENTRY WinMain(HINSTANCE instance, HINSTANCE, PSTR, INT cmd_show)
 		WS_POPUP,
 		0,
 		0,
-		1920,
-		1080,
+		SW,
+		SH,
 		nullptr,
 		nullptr,
 		wc.hInstance,
@@ -201,11 +206,6 @@ INT APIENTRY WinMain(HINSTANCE instance, HINSTANCE, PSTR, INT cmd_show)
 
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(device, device_context);
-
-	HDC hdcSource = GetDC(NULL);
-
-	int SW = GetDeviceCaps(hdcSource, HORZRES);
-	int SH = GetDeviceCaps(hdcSource, VERTRES);
 
 	SWC = SW / 2;
 	SHC = SH / 2;
